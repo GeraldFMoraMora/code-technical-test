@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.Table;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +14,7 @@ import jakarta.persistence.Id;
 @Setter
 @Entity
 @Table(name = "customer")
+@RegisterForReflection
 public class Customer {
 
     @Id
@@ -27,7 +29,6 @@ public class Customer {
     public boolean is_active;
 
     public Customer(){
-        this.is_active = true;
     }
     
 }
