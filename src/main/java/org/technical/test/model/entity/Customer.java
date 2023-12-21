@@ -5,17 +5,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class User {
+public class Customer {
 
     public Integer id;
     public String name;
     public String password;
-    public Integer telephone;
+    public String telephone;
     public String ageRange;
     public Integer gender;
     public boolean isActive;
 
-    public User(){
+    public Customer(){
         this.isActive = true;
     }
     
