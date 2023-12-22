@@ -11,4 +11,8 @@ public class CustomerDao implements PanacheRepository<Customer>{
     public Customer findByName(String name) {
         return find("name", name).firstResult();
     }
+
+    public Customer findById(Integer id) {
+        return find("id", id).firstResult();
+    }
 }

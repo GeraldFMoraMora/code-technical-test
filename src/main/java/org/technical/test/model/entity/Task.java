@@ -26,14 +26,15 @@ public class Task {
     public String description;
     public String state;
     public String image_url;
-    public boolean is_active;
+    public boolean enabled;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     public Task(){
-        this.is_active = true;
     }
+
+    public boolean getEnabled(){return this.enabled;}
 
 }

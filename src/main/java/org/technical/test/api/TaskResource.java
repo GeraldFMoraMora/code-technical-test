@@ -1,6 +1,8 @@
 package org.technical.test.api;
 
 import org.technical.test.model.entity.Task;
+import org.technical.test.model.payload.request.AddTaskRequest;
+import org.technical.test.model.service.TaskService;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -15,11 +17,15 @@ import jakarta.ws.rs.core.Response;
 @Path("/task")
 public class TaskResource {
 
+    @Inject 
+    TaskService taskService;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getTask")
     @Transactional
     public Response getTask(Task task){
+
         return Response.ok().build();
     }
 
@@ -28,6 +34,7 @@ public class TaskResource {
     @Path("getListTask")
     @Transactional
     public Response getListTask(Task task){
+
         return Response.ok().build();
     }
 
@@ -35,8 +42,9 @@ public class TaskResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("addTask")
     @Transactional
-    public Response addTask(Task task){
-        return Response.ok().build();
+    public Response addTask(AddTaskRequest taskRequest){
+
+        return Response.ok(taskService.addTask(taskRequest)).build();
     }
 
     @POST
@@ -44,6 +52,7 @@ public class TaskResource {
     @Path("updateTask")
     @Transactional
     public Response updateTask(Task task){
+
         return Response.ok().build();
     }
 
@@ -52,6 +61,7 @@ public class TaskResource {
     @Path("deleteTask/{id}")
     @Transactional
     public Response deleteTask(Task task){
+
         return Response.ok().build();
     }
     
