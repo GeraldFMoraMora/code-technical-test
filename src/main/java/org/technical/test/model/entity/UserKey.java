@@ -1,39 +1,34 @@
 package org.technical.test.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import jakarta.persistence.Table;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "task")
+@Table(name = "user_key")
 @RegisterForReflection
-public class Task {
+public class UserKey {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
 
-    public String description;
-    public String state;
-    public String image_url;
-    public boolean is_active;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    public Task(){
-        this.is_active = true;
-    }
+    private String public64_key;
+    private String private64_key;
+    private String anti_csrf_key;
 
+    public UserKey(){} 
 }
