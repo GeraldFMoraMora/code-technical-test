@@ -1,14 +1,12 @@
 package org.technical.test.api;
 
 import org.technical.test.model.dao.TaskDao;
-import org.technical.test.model.entity.Task;
 import org.technical.test.model.payload.request.AddTaskRequest;
 import org.technical.test.model.payload.request.UpdateTaskRequest;
 import org.technical.test.model.service.TaskService;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -42,6 +40,15 @@ public class TaskResource {
     public Response getListTask(@PathParam("customerId") Integer customerId){
 
         return Response.ok(taskDao.findListByCustomer(customerId)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getListStateTask/{customerId}/{state}")
+    @Transactional
+    public Response getListTask(@PathParam("customerId") Integer customerId, @PathParam("state") String state){
+
+        return Response.ok(taskDao.findListByCustomerAndState(customerId, state)).build();
     }
 
     @POST
