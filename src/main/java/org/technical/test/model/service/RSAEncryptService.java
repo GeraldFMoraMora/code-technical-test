@@ -27,6 +27,9 @@ public class RSAEncryptService {
     @Inject 
     UserKeyDao userKeyDao;
 
+    @Inject
+    CsrfTokenManagerService tokenManagerService;
+
     public void testCifrado(String pPass) throws Exception{
         KeyPair keyPair = generateKeyPair();
 
@@ -69,7 +72,7 @@ public class RSAEncryptService {
         String privateKeyBase64 = Base64.getEncoder().encodeToString(privateKeyBytes);
 
         UserKey userKey = new UserKey();
-        userKey.setAnti_csrf_key("");
+        userKey = tokenManagerService.generateToken(userKey);
         userKey.setPublic64_key(publicKeyBase64);
         userKey.setPrivate64_key(privateKeyBase64);
         userKey.setCustomer(customer);
