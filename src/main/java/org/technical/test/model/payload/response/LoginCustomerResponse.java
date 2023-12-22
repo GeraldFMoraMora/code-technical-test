@@ -11,13 +11,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterCustomerResponse {
-    
+public class LoginCustomerResponse {
+
     private Customer customer;
+    private String token;
 
     private int codeError;
     private String description;
     private String message;
     private boolean error;
-
+    
 }

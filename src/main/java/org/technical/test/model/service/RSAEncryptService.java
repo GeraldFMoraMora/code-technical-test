@@ -2,14 +2,12 @@ package org.technical.test.model.service;
 
 import javax.crypto.Cipher;
 
-import org.technical.test.model.dao.CustomerDao;
 import org.technical.test.model.dao.UserKeyDao;
 import org.technical.test.model.entity.Customer;
 import org.technical.test.model.entity.UserKey;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 
 import java.security.KeyFactory;
 import java.security.KeyPair;
