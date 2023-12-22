@@ -21,5 +21,9 @@ public class CsrfTokenManagerService {
         userKey.setAnti_csrf_key(csrfToken);
         return userKey;
     }
+
+    public boolean validateToken(String token){
+        return false;
+    }
     
 }

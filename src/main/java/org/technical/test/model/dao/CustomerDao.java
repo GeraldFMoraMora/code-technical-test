@@ -9,7 +9,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class CustomerDao implements PanacheRepository<Customer>{
-    public List<Customer> findByName( String name ){
-        return list("name", name);
+    
+    public Customer findByName(String name) {
+        return find("name", name).firstResult();
     }
 }
