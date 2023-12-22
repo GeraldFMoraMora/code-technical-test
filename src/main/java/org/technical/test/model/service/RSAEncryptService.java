@@ -3,8 +3,13 @@ package org.technical.test.model.service;
 import javax.crypto.Cipher;
 
 import org.technical.test.model.dao.CustomerDao;
+import org.technical.test.model.dao.UserKeyDao;
+import org.technical.test.model.entity.Customer;
+import org.technical.test.model.entity.UserKey;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -16,11 +21,12 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
+@ApplicationScoped
 public class RSAEncryptService {
 
     @Inject 
-    CustomerDao customerDao;
-    
+    UserKeyDao userKeyDao;
+
     public void testCifrado(String pPass) throws Exception{
         KeyPair keyPair = generateKeyPair();
 
@@ -42,6 +48,35 @@ public class RSAEncryptService {
         String decryptPass = decrypt(encryptedBytes, retrieveFromDatabase(publicKeyBase64, privateKeyBase64).getPrivate());
 
         System.out.println("Mensaje descifrado:\n"+decryptPass);
+    }
+
+    public Customer encriptPassword(Customer customer) throws Exception{
+        //Genero primero las llaves publica y privada
+        KeyPair keyPair = generateKeyPair();
+
+        //Encripto la contrasena
+        byte[] encryptedBytes = encript(customer.getPassword(), keyPair.getPublic());
+
+        // Seteo la contrasena por la contrasena encriptada
+        customer.setPassword(encryptedBytes.toString());
+
+        // Convertir claves a bytes
+        byte[] publicKeyBytes = keyPair.getPublic().getEncoded();
+        byte[] privateKeyBytes = keyPair.getPrivate().getEncoded();
+
+        // Convertir bytes a strings Base64 para almacenar en la base de datos
+        String publicKeyBase64 = Base64.getEncoder().encodeToString(publicKeyBytes);
+        String privateKeyBase64 = Base64.getEncoder().encodeToString(privateKeyBytes);
+
+        UserKey userKey = new UserKey();
+        userKey.setAnti_csrf_key("");
+        userKey.setPublic64_key(publicKeyBase64);
+        userKey.setPrivate64_key(privateKeyBase64);
+        userKey.setCustomer(customer);
+
+        userKeyDao.persist(userKey);
+
+        return customer;
     }
 
     //Generar mi par de llaves RSA

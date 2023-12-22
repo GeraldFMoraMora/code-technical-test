@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.technical.test.model.dao.CustomerDao;
 import org.technical.test.model.entity.Customer;
+import org.technical.test.model.service.RSAEncryptService;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -21,12 +22,15 @@ public class CustomerResource {
     @Inject
     CustomerDao customerDao;
 
+    @Inject
+    private RSAEncryptService encryptService;
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Customer registerCustomer(Customer customer){
-        customerDao.persist(customer);
-        return customer;
+    public Customer registerCustomer(Customer customer) throws Exception{
+        customerDao.persist(encryptService.encriptPassword(customer));
+        return customer; 
     }
 
     @GET
