@@ -73,7 +73,7 @@ public class TaskService {
         UpdateTaskResponse taskResponse = new UpdateTaskResponse();
         Task task = new Task();
         
-        Task taskTemp1 = taskDao.findByDescriptionAndCustomer(taskRequest.getDescription(), taskRequest.getCustomer_id());
+        Task taskTemp1 = taskDao.findByDescriptionAndStatusAndCustomer(taskRequest.getDescription(), true,taskRequest.getCustomer_id());
         if (taskTemp1!=null){
             task.setDescription(taskRequest.getDescription());
             task.setState(taskRequest.getState());
@@ -94,8 +94,22 @@ public class TaskService {
         return taskResponse;
     }
 
-    public DeleteTaskResponse deleteTask(String id){
+    public DeleteTaskResponse deleteTask(Integer id, Integer customerId){
         DeleteTaskResponse taskResponse = new DeleteTaskResponse();
+        
+        Task taskTemp1 = taskDao.findByIdAndCustomer(id, customerId);
+        if (taskTemp1!=null){
+            taskTemp1.setEnabled(false);
+            taskDao.persist(taskTemp1);
+            taskResponse.setTask(taskTemp1);
+            taskResponse.setError(false);
+
+        }else{
+            taskResponse.setCodeError(406);  
+            taskResponse.setDescription("User entered info for an unknow task");
+            taskResponse.setMessage("ERROR: Task not exist");  
+            taskResponse.setError(true);
+        }
         
         return taskResponse;
     }

@@ -62,13 +62,13 @@ public class TaskResource {
         return Response.ok(taskService.updateTask(taskRequest)).build();
     }
 
-    @DELETE
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("deleteTask/{id}")
+    @Path("deleteTask/{id}/{customerId}")
     @Transactional
-    public Response deleteTask(Task task){
+    public Response deleteTask(@PathParam("id") Integer id, @PathParam("customerId") Integer customerId){
 
-        return Response.ok().build();
+        return Response.ok(taskService.deleteTask(id, customerId)).build();
     }
     
 }
