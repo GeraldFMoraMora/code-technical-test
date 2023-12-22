@@ -59,7 +59,7 @@ public class RSAEncryptService {
         byte[] encryptedBytes = encript(customer.getPassword(), keyPair.getPublic());
 
         // Seteo la contrasena por la contrasena encriptada
-        customer.setPassword(encryptedBytes.toString());
+        customer.setPassword(Base64.getEncoder().encodeToString(encryptedBytes));
 
         // Convertir claves a bytes
         byte[] publicKeyBytes = keyPair.getPublic().getEncoded();
@@ -104,7 +104,7 @@ public class RSAEncryptService {
     }
 
     // Recuperar claves desde la base de datos y convertirlas de nuevo a objetos KeyPair
-    public static KeyPair retrieveFromDatabase(String public64, String private64) throws Exception {
+    public KeyPair retrieveFromDatabase(String public64, String private64) throws Exception {
         // Simulado: Recuperar claves desde la base de datos (como strings Base64)
         String retrievedPublicKeyBase64 = public64; // Obtener desde la base de datos
         String retrievedPrivateKeyBase64 = private64; // Obtener desde la base de datos
