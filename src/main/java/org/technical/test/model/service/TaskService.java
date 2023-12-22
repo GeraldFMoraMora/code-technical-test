@@ -4,6 +4,7 @@ import org.technical.test.model.dao.CustomerDao;
 import org.technical.test.model.dao.TaskDao;
 import org.technical.test.model.entity.Task;
 import org.technical.test.model.payload.request.AddTaskRequest;
+import org.technical.test.model.payload.request.UpdateTaskRequest;
 import org.technical.test.model.payload.response.AddTaskResponse;
 import org.technical.test.model.payload.response.DeleteTaskResponse;
 import org.technical.test.model.payload.response.GetListTaskResponse;
@@ -68,8 +69,27 @@ public class TaskService {
         return taskResponse;
     }
 
-    public UpdateTaskResponse updateTask(Task task){
+    public UpdateTaskResponse updateTask(UpdateTaskRequest taskRequest){
         UpdateTaskResponse taskResponse = new UpdateTaskResponse();
+        Task task = new Task();
+        
+        Task taskTemp1 = taskDao.findByDescriptionAndCustomer(taskRequest.getDescription(), taskRequest.getCustomer_id());
+        if (taskTemp1!=null){
+            task.setDescription(taskRequest.getDescription());
+            task.setState(taskRequest.getState());
+            task.setImage_url(taskRequest.getImage_url());
+            task.setEnabled(true);
+            task.setCustomer(customerDao.findById(taskRequest.getCustomer_id()));
+            taskDao.persist(task);
+            taskResponse.setTask(task);
+            taskResponse.setError(false);
+
+        }else{
+            taskResponse.setCodeError(406);  
+            taskResponse.setDescription("User entered info for an unknow task");
+            taskResponse.setMessage("ERROR: Task not exist");  
+            taskResponse.setError(true);
+        }
         
         return taskResponse;
     }

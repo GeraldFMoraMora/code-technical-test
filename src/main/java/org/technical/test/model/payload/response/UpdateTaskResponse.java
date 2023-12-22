@@ -1,6 +1,7 @@
 package org.technical.test.model.payload.response;
 
-import io.vertx.core.net.impl.pool.Task;
+import org.technical.test.model.entity.Task;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

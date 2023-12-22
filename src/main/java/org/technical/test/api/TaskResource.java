@@ -3,6 +3,7 @@ package org.technical.test.api;
 import org.technical.test.model.dao.TaskDao;
 import org.technical.test.model.entity.Task;
 import org.technical.test.model.payload.request.AddTaskRequest;
+import org.technical.test.model.payload.request.UpdateTaskRequest;
 import org.technical.test.model.service.TaskService;
 
 import jakarta.inject.Inject;
@@ -56,9 +57,9 @@ public class TaskResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("updateTask")
     @Transactional
-    public Response updateTask(Task task){
+    public Response updateTask(UpdateTaskRequest taskRequest){
 
-        return Response.ok().build();
+        return Response.ok(taskService.updateTask(taskRequest)).build();
     }
 
     @DELETE
