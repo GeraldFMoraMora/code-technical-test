@@ -1,5 +1,6 @@
 package org.technical.test.api;
 
+import org.technical.test.model.dao.TaskDao;
 import org.technical.test.model.entity.Task;
 import org.technical.test.model.payload.request.AddTaskRequest;
 import org.technical.test.model.service.TaskService;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -20,22 +22,25 @@ public class TaskResource {
     @Inject 
     TaskService taskService;
 
+    @Inject
+    TaskDao taskDao;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("getTask")
+    @Path("/getTask/{id}/{customerId}")
     @Transactional
-    public Response getTask(Task task){
+    public Response getTask(@PathParam("id") Integer id, @PathParam("customerId") Integer customerId){
 
-        return Response.ok().build();
+        return Response.ok(taskDao.findByIdAndCustomer(id, customerId)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("getListTask")
+    @Path("/getListTask/{customerId}")
     @Transactional
-    public Response getListTask(Task task){
+    public Response getListTask(@PathParam("customerId") Integer customerId){
 
-        return Response.ok().build();
+        return Response.ok(taskDao.findListByCustomer(customerId)).build();
     }
 
     @POST

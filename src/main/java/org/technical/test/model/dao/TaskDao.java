@@ -1,5 +1,7 @@
 package org.technical.test.model.dao;
 
+import java.util.List;
+
 import org.technical.test.model.entity.Task;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -17,15 +19,20 @@ public class TaskDao implements PanacheRepository<Task> {
         return find("description", description).firstResult();
     }
 
-    /**public Task findByDescriptionAndCustomerId(String description, Integer customerId) {
-        return find("description = :description and customer.id = :customerId",
-                Parameters.with("description", description).and("customerId", customerId))
-                .firstResult();
-    }*/
     public Task findByDescriptionAndCustomer(String description, Integer customerId) {
         return find("description = ?1 and customer.id = ?2",
                 description, customerId)
                 .firstResult();
+    }
+
+    public Task findByIdAndCustomer(Integer id, Integer customerId) {
+        return find("id = ?1 and customer.id = ?2",
+                id, customerId)
+                .firstResult();
+    }
+
+    public List<Task> findListByCustomer(Integer customerId) {
+        return list("customer.id = ?1", customerId);
     }
 
     public Task findByDescriptionAndActive(String description, boolean enabled){
@@ -33,12 +40,7 @@ public class TaskDao implements PanacheRepository<Task> {
         Parameters.with("description", description).and("enabled", enabled))
         .firstResult();
     }
-    /**public Task findByDescriptionAndCustomerIdAndActive( String description, Integer customerId, boolean enabled){
-        return find("description = :description and customer_id = :customerId and enabled = :enabled",
-        Parameters.with("description", description).and("customerId", customerId)
-        .and("enabled", enabled))
-        .firstResult();
-    }*/
+
     public Task findByDescriptionAndStatusAndCustomer(String description, boolean enabled, Integer customerId) {
         return find("description = ?1 and enabled = ?2 and customer.id = ?3",
                 description, enabled, customerId)
