@@ -1,5 +1,7 @@
 package org.technical.test.model.service;
 
+import java.util.List;
+
 import org.technical.test.model.dao.CustomerDao;
 import org.technical.test.model.dao.TaskDao;
 import org.technical.test.model.entity.Task;
@@ -13,6 +15,7 @@ import org.technical.test.model.payload.response.UpdateTaskResponse;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.HttpHeaders;
 
 @ApplicationScoped
 public class TaskService {
@@ -20,12 +23,24 @@ public class TaskService {
     @Inject
     TaskDao taskDao;
 
+    @Inject 
+    CsrfTokenManagerService tokenManagerService;
+
     @Inject
     CustomerDao customerDao;
 
-    public AddTaskResponse addTask(AddTaskRequest taskRequest){
+    public AddTaskResponse addTask(AddTaskRequest taskRequest, HttpHeaders headers){
 
         AddTaskResponse taskResponse = new AddTaskResponse();
+
+        if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), taskRequest.getCustomer_id())==false){
+            taskResponse.setCodeError(407);  
+            taskResponse.setDescription("User entered an invalid token");
+            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setError(true);
+            return taskResponse;
+        }
+
         Task task = new Task();
         
         Task taskTemp1 = taskDao.findByDescriptionAndCustomer(taskRequest.getDescription(), taskRequest.getCustomer_id());
@@ -57,20 +72,50 @@ public class TaskService {
         return taskResponse;
     }
 
-    public GetTaskResponse getTask(String id){
+    public GetTaskResponse getTask(Task task, HttpHeaders headers , Integer customerId){
         GetTaskResponse taskResponse = new GetTaskResponse();
+
+        if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)){
+            taskResponse.setError(false);
+            taskResponse.setTask(task);
+        }else{
+            taskResponse.setCodeError(407);  
+            taskResponse.setDescription("User entered an invalid token");
+            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setError(true);
+        }
         
         return taskResponse;
     }
 
-    public GetListTaskResponse getListTask(){
+    public GetListTaskResponse getListTask(HttpHeaders headers, Integer customerId, List<Task> task){
         GetListTaskResponse taskResponse = new GetListTaskResponse();
+
+        if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)==false){
+            taskResponse.setCodeError(407);  
+            taskResponse.setDescription("User entered an invalid token");
+            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setError(true);
+            return taskResponse;
+        }else{
+            taskResponse.setError(false);
+            taskResponse.setTask(task);
+        }
         
         return taskResponse;
     }
 
-    public UpdateTaskResponse updateTask(UpdateTaskRequest taskRequest){
+    public UpdateTaskResponse updateTask(UpdateTaskRequest taskRequest, HttpHeaders headers){
         UpdateTaskResponse taskResponse = new UpdateTaskResponse();
+
+        if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), taskRequest.getCustomer_id())==false){
+            taskResponse.setCodeError(407);  
+            taskResponse.setDescription("User entered an invalid token");
+            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setError(true);
+            return taskResponse;
+        }
+
         Task task = new Task();
         
         Task taskTemp1 = taskDao.findByDescriptionAndStatusAndCustomer(taskRequest.getDescription(), true,taskRequest.getCustomer_id());
@@ -94,8 +139,16 @@ public class TaskService {
         return taskResponse;
     }
 
-    public DeleteTaskResponse deleteTask(Integer id, Integer customerId){
+    public DeleteTaskResponse deleteTask(Integer id, HttpHeaders headers, Integer customerId){
         DeleteTaskResponse taskResponse = new DeleteTaskResponse();
+
+        if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)==false){
+            taskResponse.setCodeError(407);  
+            taskResponse.setDescription("User entered an invalid token");
+            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setError(true);
+            return taskResponse;
+        }
         
         Task taskTemp1 = taskDao.findByIdAndCustomer(id, customerId);
         if (taskTemp1!=null){
