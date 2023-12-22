@@ -1,8 +1,5 @@
 package org.technical.test.model.payload.request;
 
-import org.technical.test.model.entity.Customer;
-import org.technical.test.model.entity.Task;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

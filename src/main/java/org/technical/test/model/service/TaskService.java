@@ -26,20 +26,21 @@ public class TaskService {
 
         AddTaskResponse taskResponse = new AddTaskResponse();
         Task task = new Task();
-        task.setDescription(taskRequest.getDescription());
-        task.setState(taskRequest.getState());
-        task.setImage_url(taskRequest.getImage_url());
-        task.setEnabled(taskRequest.isActive());
-        task.setCustomer(customerDao.findById(taskRequest.getCustomer_id()));
-
-        Task taskTemp1 = taskDao.findByDescription(task.getDescription());
+        
+        Task taskTemp1 = taskDao.findByDescriptionAndCustomer(taskRequest.getDescription(), taskRequest.getCustomer_id());
         if (taskTemp1==null){
-            //task.setCustomer(customerDao.findById(task.getCustomer()));
+
+            task.setDescription(taskRequest.getDescription());
+            task.setState(taskRequest.getState());
+            task.setImage_url(taskRequest.getImage_url());
+            task.setEnabled(true);
+            task.setCustomer(customerDao.findById(taskRequest.getCustomer_id()));
             taskDao.persist(task);
             taskResponse.setTask(task);
             taskResponse.setError(false);
+
         }else{
-            Task taskTemp2 = taskDao.findByDescriptionAndActive(task.getDescription(), true);
+            Task taskTemp2 = taskDao.findByDescriptionAndStatusAndCustomer(taskRequest.getDescription(), true, taskRequest.getCustomer_id());
             if(taskTemp2==null){
                 taskTemp1.setEnabled(true);
                 taskDao.persist(taskTemp1);

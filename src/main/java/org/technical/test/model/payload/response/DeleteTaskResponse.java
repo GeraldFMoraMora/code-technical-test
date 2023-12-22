@@ -1,7 +1,5 @@
 package org.technical.test.model.payload.response;
 
-import org.technical.test.model.entity.Customer;
-
 import io.vertx.core.net.impl.pool.Task;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
