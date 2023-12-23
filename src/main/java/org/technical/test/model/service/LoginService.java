@@ -29,7 +29,6 @@ public class LoginService {
         LoginCustomerResponse customerResponse = new LoginCustomerResponse();
         if (customerTemp!=null){//Verifico si usuario existe
             UserKey userKey = keyDao.findByCustomerId(customerTemp.getId());
-
             if (userKey != null){//Verifico si extraje bien sus claves
                 KeyPair keyPair = encryptService.retrieveFromDatabase(userKey.getPublic64_key(), userKey.getPrivate64_key());
                 String passTemp = encryptService.decrypt(Base64.getDecoder().decode(customerTemp.getPassword()), keyPair.getPrivate());
@@ -44,7 +43,9 @@ public class LoginService {
                     customerResponse.setDescription("User entered an incorrect password");
                     customerResponse.setMessage("ERROR: Password incorrect");  
                     customerResponse.setError(true);
+
                 }
+
                 
             }else{
                 customerResponse.setCodeError(403);  
