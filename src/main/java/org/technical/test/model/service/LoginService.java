@@ -25,6 +25,7 @@ public class LoginService {
     RSAEncryptService encryptService;
 
     public LoginCustomerResponse loginCustomer(Customer customer) throws Exception{
+
         Customer customerTemp = customerDao.findByName(customer.getName());
         LoginCustomerResponse customerResponse = new LoginCustomerResponse();
         if (customerTemp!=null){//Verifico si usuario existe
@@ -34,7 +35,6 @@ public class LoginService {
                 String passTemp = encryptService.decrypt(Base64.getDecoder().decode(customerTemp.getPassword()), keyPair.getPrivate());
 
                 if(passTemp.equals(customer.getPassword())){
-                    System.out.println(userKey.getId());
                     customerResponse.setCustomer(customerTemp);
                     customerResponse.setToken(userKey.getAnti_csrf_key());
                     customerResponse.setError(false);
@@ -45,7 +45,6 @@ public class LoginService {
                     customerResponse.setError(true);
 
                 }
-
                 
             }else{
                 customerResponse.setCodeError(403);  

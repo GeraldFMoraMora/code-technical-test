@@ -80,6 +80,11 @@
       <artifactId>quarkus-resteasy-jsonb</artifactId>
     </dependency>
 
+    <!-- Habilitar CORS -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-jackson</artifactId>
+    </dependency>
 
   </dependencies>
   <build>
