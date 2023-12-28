@@ -34,6 +34,9 @@ public class TaskDao implements PanacheRepository<Task> {
     public List<Task> findListByCustomer(Integer customerId) {
         return list("customer.id = ?1", customerId);
     }
+    public List<Task> findListByCustomerAndEnabled(Integer customerId, Boolean enabled) {
+        return list("customer.id = ?1 and enabled = ?2", customerId, enabled);
+    }
     public List<Task> findListByCustomerAndState(Integer customerId, String state) {
         return list("customer.id = ?1 and state = ?2", customerId, state);
     }

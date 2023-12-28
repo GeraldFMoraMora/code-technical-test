@@ -45,7 +45,7 @@ public class TaskResource {
     @Transactional
     public Response getListTask(@PathParam("customerId") Integer customerId, @Context HttpHeaders headers){
 
-        return Response.ok(taskService.getListTask(headers, customerId, taskDao.findListByCustomer(customerId))).build();
+        return Response.ok(taskService.getListTask(headers, customerId, taskDao.findListByCustomerAndEnabled(customerId, true))).build();
     }
 
     @GET
