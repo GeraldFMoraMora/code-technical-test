@@ -115,18 +115,16 @@ public class TaskService {
             taskResponse.setError(true);
             return taskResponse;
         }
-
-        Task task = new Task();
         
         Task taskTemp1 = taskDao.findByDescriptionAndStatusAndCustomer(taskRequest.getDescription(), true,taskRequest.getCustomer_id());
         if (taskTemp1!=null){
-            task.setDescription(taskRequest.getDescription());
-            task.setState(taskRequest.getState());
-            task.setImage_url(taskRequest.getImage_url());
-            task.setEnabled(true);
-            task.setCustomer(customerDao.findById(taskRequest.getCustomer_id()));
-            taskDao.persist(task);
-            taskResponse.setTask(task);
+            taskTemp1.setDescription(taskRequest.getDescription());
+            taskTemp1.setState(taskRequest.getState());
+            taskTemp1.setImage_url(taskRequest.getImage_url());
+            taskTemp1.setEnabled(true);
+            taskTemp1.setCustomer(customerDao.findById(taskRequest.getCustomer_id()));
+            taskDao.persist(taskTemp1);
+            taskResponse.setTask(taskTemp1);
             taskResponse.setError(false);
 
         }else{
