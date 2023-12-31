@@ -12,6 +12,8 @@ import org.technical.test.model.payload.response.LoginCustomerResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import org.technical.test.global.ErrorCode;
+
 @ApplicationScoped
 public class LoginService {
 
@@ -39,24 +41,24 @@ public class LoginService {
                     customerResponse.setToken(userKey.getAnti_csrf_key());
                     customerResponse.setError(false);
                 }else{
-                    customerResponse.setCodeError(404);  
-                    customerResponse.setDescription("User entered an incorrect password");
-                    customerResponse.setMessage("ERROR: Password incorrect");  
+                    customerResponse.setCodeError(ErrorCode.ERROR_102);  
+                    customerResponse.setDescription(ErrorCode.ERROR_102_DESC);
+                    customerResponse.setMessage(ErrorCode.ERROR_102_MSG);  
                     customerResponse.setError(true);
 
                 }
                 
             }else{
-                customerResponse.setCodeError(403);  
-                customerResponse.setDescription("That user not have keys");
-                customerResponse.setMessage("ERROR: keys does not exits");  
+                customerResponse.setCodeError(ErrorCode.ERROR_101);  
+                customerResponse.setDescription(ErrorCode.ERROR_101_DESC);
+                customerResponse.setMessage(ErrorCode.ERROR_101_MSG);  
                 customerResponse.setError(true);
             }
             
         }else{
-            customerResponse.setCodeError(402);  
-            customerResponse.setDescription("We have not found that username");
-            customerResponse.setMessage("ERROR: Username not exist");  
+            customerResponse.setCodeError(ErrorCode.ERROR_100);  
+            customerResponse.setDescription(ErrorCode.ERROR_100_DESC);
+            customerResponse.setMessage(ErrorCode.ERROR_100_MSG);  
             customerResponse.setError(true);
         }
 

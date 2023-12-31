@@ -2,6 +2,7 @@ package org.technical.test.model.service;
 
 import java.util.List;
 
+import org.technical.test.global.ErrorCode;
 import org.technical.test.model.dao.CustomerDao;
 import org.technical.test.model.dao.TaskDao;
 import org.technical.test.model.entity.Task;
@@ -34,9 +35,9 @@ public class TaskService {
         AddTaskResponse taskResponse = new AddTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), taskRequest.getCustomer_id())==false){
-            taskResponse.setCodeError(407);  
-            taskResponse.setDescription("User entered an invalid token");
-            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setCodeError(ErrorCode.ERROR_107);  
+            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);   
             taskResponse.setError(true);
             return taskResponse;
         }
@@ -63,9 +64,9 @@ public class TaskService {
                 taskResponse.setTask(taskTemp1);
                 taskResponse.setError(false);
             }else{
-                taskResponse.setCodeError(405);  
-                taskResponse.setDescription("User entered an exist and active task");
-                taskResponse.setMessage("ERROR: Task Already exist and is active");  
+                taskResponse.setCodeError(ErrorCode.ERROR_104);  
+                taskResponse.setDescription(ErrorCode.ERROR_104_DESC);
+                taskResponse.setMessage(ErrorCode.ERROR_104_MSG);  
                 taskResponse.setError(true);
             }
         }
@@ -79,9 +80,9 @@ public class TaskService {
             taskResponse.setError(false);
             taskResponse.setTask(task);
         }else{
-            taskResponse.setCodeError(407);  
-            taskResponse.setDescription("User entered an invalid token");
-            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setCodeError(ErrorCode.ERROR_107);  
+            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
             taskResponse.setError(true);
         }
         
@@ -92,9 +93,9 @@ public class TaskService {
         GetListTaskResponse taskResponse = new GetListTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)==false){
-            taskResponse.setCodeError(407);  
-            taskResponse.setDescription("User entered an invalid token");
-            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setCodeError(ErrorCode.ERROR_107);  
+            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
             taskResponse.setError(true);
             return taskResponse;
         }else{
@@ -109,9 +110,9 @@ public class TaskService {
         UpdateTaskResponse taskResponse = new UpdateTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), taskRequest.getCustomer_id())==false){
-            taskResponse.setCodeError(407);  
-            taskResponse.setDescription("User entered an invalid token");
-            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setCodeError(ErrorCode.ERROR_107);  
+            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
             taskResponse.setError(true);
             return taskResponse;
         }
@@ -128,9 +129,9 @@ public class TaskService {
             taskResponse.setError(false);
 
         }else{
-            taskResponse.setCodeError(406);  
-            taskResponse.setDescription("User entered info for an unknow task");
-            taskResponse.setMessage("ERROR: Task not exist");  
+            taskResponse.setCodeError(ErrorCode.ERROR_105);  
+            taskResponse.setDescription(ErrorCode.ERROR_105_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_105_MSG);  
             taskResponse.setError(true);
         }
         
@@ -141,9 +142,9 @@ public class TaskService {
         DeleteTaskResponse taskResponse = new DeleteTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)==false){
-            taskResponse.setCodeError(407);  
-            taskResponse.setDescription("User entered an invalid token");
-            taskResponse.setMessage("ERROR: Invalid Token");  
+            taskResponse.setCodeError(ErrorCode.ERROR_107);  
+            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
             taskResponse.setError(true);
             return taskResponse;
         }
@@ -156,9 +157,9 @@ public class TaskService {
             taskResponse.setError(false);
 
         }else{
-            taskResponse.setCodeError(406);  
-            taskResponse.setDescription("User entered info for an unknow task");
-            taskResponse.setMessage("ERROR: Task not exist");  
+            taskResponse.setCodeError(ErrorCode.ERROR_105);  
+            taskResponse.setDescription(ErrorCode.ERROR_105_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_105_MSG);  
             taskResponse.setError(true);
         }
         

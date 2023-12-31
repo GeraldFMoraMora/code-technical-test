@@ -105,7 +105,6 @@ public class RSAEncryptService {
 
     // Recuperar claves desde la base de datos y convertirlas de nuevo a objetos KeyPair
     public KeyPair retrieveFromDatabase(String public64, String private64) throws Exception {
-        // Simulado: Recuperar claves desde la base de datos (como strings Base64)
         String retrievedPublicKeyBase64 = public64; // Obtener desde la base de datos
         String retrievedPrivateKeyBase64 = private64; // Obtener desde la base de datos
 

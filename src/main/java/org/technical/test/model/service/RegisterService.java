@@ -7,6 +7,8 @@ import org.technical.test.model.payload.response.RegisterCustomerResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import org.technical.test.global.ErrorCode;
+
 @ApplicationScoped
 public class RegisterService {
 
@@ -26,9 +28,9 @@ public class RegisterService {
             customerResponse.setCustomer(customer);
             customerResponse.setError(false);
         }else{
-            customerResponse.setCodeError(401);  
-            customerResponse.setDescription("Duplicated username");
-            customerResponse.setMessage("ERROR: Username not avaible");  
+            customerResponse.setCodeError(ErrorCode.ERROR_103);  
+            customerResponse.setDescription(ErrorCode.ERROR_103_DESC);
+            customerResponse.setMessage(ErrorCode.ERROR_103_MSG);  
             customerResponse.setError(true);
         }
         return customerResponse;
