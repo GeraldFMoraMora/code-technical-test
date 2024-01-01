@@ -35,9 +35,9 @@ public class TaskService {
         AddTaskResponse taskResponse = new AddTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), taskRequest.getCustomer_id())==false){
-            taskResponse.setCodeError(ErrorCode.ERROR_107);  
-            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
-            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);   
+            taskResponse.setCodeError(ErrorCode.ERROR_106);  
+            taskResponse.setDescription(ErrorCode.ERROR_106_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_106_MSG);   
             taskResponse.setError(true);
             return taskResponse;
         }
@@ -80,9 +80,9 @@ public class TaskService {
             taskResponse.setError(false);
             taskResponse.setTask(task);
         }else{
-            taskResponse.setCodeError(ErrorCode.ERROR_107);  
-            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
-            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
+            taskResponse.setCodeError(ErrorCode.ERROR_106);  
+            taskResponse.setDescription(ErrorCode.ERROR_106_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_106_MSG);  
             taskResponse.setError(true);
         }
         
@@ -93,9 +93,9 @@ public class TaskService {
         GetListTaskResponse taskResponse = new GetListTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)==false){
-            taskResponse.setCodeError(ErrorCode.ERROR_107);  
-            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
-            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
+            taskResponse.setCodeError(ErrorCode.ERROR_106);  
+            taskResponse.setDescription(ErrorCode.ERROR_106_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_106_MSG);  
             taskResponse.setError(true);
             return taskResponse;
         }else{
@@ -110,9 +110,9 @@ public class TaskService {
         UpdateTaskResponse taskResponse = new UpdateTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), taskRequest.getCustomer_id())==false){
-            taskResponse.setCodeError(ErrorCode.ERROR_107);  
-            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
-            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
+            taskResponse.setCodeError(ErrorCode.ERROR_106);  
+            taskResponse.setDescription(ErrorCode.ERROR_106_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_106_MSG);  
             taskResponse.setError(true);
             return taskResponse;
         }
@@ -142,9 +142,9 @@ public class TaskService {
         DeleteTaskResponse taskResponse = new DeleteTaskResponse();
 
         if(tokenManagerService.validateToken(headers.getHeaderString(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()), customerId)==false){
-            taskResponse.setCodeError(ErrorCode.ERROR_107);  
-            taskResponse.setDescription(ErrorCode.ERROR_107_DESC);
-            taskResponse.setMessage(ErrorCode.ERROR_107_MSG);  
+            taskResponse.setCodeError(ErrorCode.ERROR_106);  
+            taskResponse.setDescription(ErrorCode.ERROR_106_DESC);
+            taskResponse.setMessage(ErrorCode.ERROR_106_MSG);  
             taskResponse.setError(true);
             return taskResponse;
         }
