@@ -18,19 +18,15 @@ public class ErrorCode {
     public static String ERROR_103_MSG = "ERROR: Username not avaible";
 
     public static int ERROR_104 = 104;
-    public static String ERROR_104_DESC = "";
-    public static String ERROR_104_MSG = "";
+    public static String ERROR_104_DESC = "User entered an exist and active task";
+    public static String ERROR_104_MSG = "ERROR: Task Already exist and is active";
 
     public static int ERROR_105 = 105;
-    public static String ERROR_105_DESC = "";
-    public static String ERROR_105_MSG = "";
+    public static String ERROR_105_DESC = "User entered info for an unknow task";
+    public static String ERROR_105_MSG = "ERROR: Task not exist";
 
     public static int ERROR_106 = 106;
-    public static String ERROR_106_DESC = "";
-    public static String ERROR_106_MSG = "";
-
-    public static int ERROR_107 = 107;
-    public static String ERROR_107_DESC = "";
-    public static String ERROR_107_MSG = "";
+    public static String ERROR_106_DESC = "User entered an invalid token";
+    public static String ERROR_106_MSG = "ERROR: Invalid Token";
 
 }
