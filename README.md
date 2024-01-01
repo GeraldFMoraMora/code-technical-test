@@ -17,11 +17,11 @@ Los valores para representar el genero del usuario del lado del API y la base de
 - **1**: Este valor entero representa el genero masculino.
 
 Para representar el rango de edad, se utilizaran los siguientes valores string:
--**10-17**
--**18-30**
--**31-50**
--**51-64**
--**65+**
+- **10-17**
+- **18-30**
+- **31-50**
+- **51-64**
+- **65+**
 
 Los tres estados que van a tener las tareas y que van a ser interpretados por el frontend van a ser: 
 - **todo**, estas son tareas que estan pendientes de realizar.
