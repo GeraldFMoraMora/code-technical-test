@@ -51,24 +51,30 @@ En la base de datos existe un campo para cada tarea llamado **is_enabled**, el c
 	"password":"qwertyy"
 }
 ```
+> **NOTA importante**: Es necesario capturar el valor del parametro en la respuesta llamado token, este va a ser necesario y **obligatorio** para toda la administracion de los endpoints relacionados a tareas.
 - **/customer/findByName/{userName}**: Este es un **GET** que se encarga de encontrar un usuario por su nombre de usuario. En el URL se debe reemplazar {userName} por el nombre de usuario a buscar. Ejemplo:
 ```shell script
 /customer/findByName/usernametest1
 ```
 
 - ### Endpoints para administración de tareas:
+> **NOTA importante**: Es necesario capturar el valor del parametro en la respuesta del login llamado token, este va a ser necesario y **obligatorio** para toda la administracion de los endpoints relacionados a tareas.
+
 - **/task/getTask/{taskId}/{userId}**: Este es un **GET** que se encarga de encontrar la informacion de una tarea especifica, para ello se debe reemplazar en el URL los valores taskId y userId, que corresponden al id de la tarea y del usuario respectivamente. Ejemplo:
 ```shell script
 /task/getTask/11/14
 ```
+> **NOTA**: Requiere token.
 - **/task/getListTask/{userId}**: Este es un **GET** que se encarga de encontrar toda la información de las tareas existentes de un usuario especifíco.  En el URL se debe reemplazar {userId} por el nombre de usuario a buscar. Ejemplo:
 ```shell script
 /task/getListTask/49
 ```
+> **NOTA**: Requiere token.
 - **/task/getListStateTask/{userId}/{state}**: Este es un **GET** con el cúal se puede extraer una lista de treas segun el estado especificado, que puede ser todo, working o done. Ejemplo:
 ```shell script
 /task/getListStateTask/16/done
 ```
+> **NOTA**: Requiere token.
 - **/task/addTask**: Este es un **POST** con el cúal se puede agregar tareas nuevas. Su estructura es la siguiente:
 ```javascript
 { 
@@ -79,6 +85,7 @@ En la base de datos existe un campo para cada tarea llamado **is_enabled**, el c
 	"customer_id":  49
 }
 ```
+> **NOTA**: Requiere token.
 - **/task/updateTask**: Este es un **POST** con el cúal se puede actualizar alguno de los datos de una tarea existente. Su estrúctura es la siguiente:
  ```javascript
 { 
@@ -89,7 +96,9 @@ En la base de datos existe un campo para cada tarea llamado **is_enabled**, el c
 	"customer_id":  49
 }
 ```
+> **NOTA**: Requiere token.
 - **/task/deleteTask/{taskId}/{userId}**: Este es un **GET** que se encarga de encontrar una tarea exsitente especifica y la elimina para no ser mostrada en la lista de tareas del frontend (En base de datos, solamente se cambia su estado de habilitado a inhabilitado). Para ello se debe reemplazar en el URL los valores taskId y userId, que corresponden al id de la tarea y del usuario respectivamente. Ejemplo:
 ```shell script
 /task/deleteTask/69/49
 ```
+> **NOTA**: Requiere token.
